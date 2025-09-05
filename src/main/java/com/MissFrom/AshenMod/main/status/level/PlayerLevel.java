@@ -30,9 +30,10 @@ public class PlayerLevel implements IPlayerLevel {
     @Override
     public void addExperience(int exp) {
         this.experience += exp;
-        while (canLevelUp()) {
-            levelUp();
-        }
+        // 重複コメントアウト
+//        while (canLevelUp()) {
+//            levelUp();
+//        }
     }
 
     @Override
