@@ -7,6 +7,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import com.MissFrom.AshenMod.main.capability.CapabilityEventHandler;
 import org.lwjgl.glfw.GLFW;
 
 @Mod("ashenmod")
@@ -33,6 +34,7 @@ public class AshenMod {
     }
 
     public AshenMod(){
-
+        // Capabilityイベントを登録
+        MinecraftForge.EVENT_BUS.register(CapabilityEventHandler.class);
     }
 }
