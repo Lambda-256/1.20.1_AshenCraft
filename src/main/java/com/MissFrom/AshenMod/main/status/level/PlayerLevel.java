@@ -3,6 +3,7 @@ package com.MissFrom.AshenMod.main.status.level;
 import net.minecraft.nbt.CompoundTag;
 
 public class PlayerLevel implements IPlayerLevel {
+    private static final int MAX_LEVEL = 120;
     private int level = 1;
     private int experience = 0;
     private int experienceToNextLevel = 100;
@@ -38,7 +39,8 @@ public class PlayerLevel implements IPlayerLevel {
 
     @Override
     public boolean canLevelUp() {
-        return experience >= experienceToNextLevel;
+        // 最大レベル未満の場合、レベルアップ可能
+        return level < MAX_LEVEL && experience >= experienceToNextLevel;
     }
 
     @Override
@@ -49,7 +51,10 @@ public class PlayerLevel implements IPlayerLevel {
     }
 
     private int calculateExpForNextLevel() {
-        return 100 + level * 20;
+        // 最大レベル未満は次回レベルの必要経験値を返す
+        return level < MAX_LEVEL
+                ? 100 + level * 20
+                : Integer.MAX_VALUE;
     }
 
     @Override
