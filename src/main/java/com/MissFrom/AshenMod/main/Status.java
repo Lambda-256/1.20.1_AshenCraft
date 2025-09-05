@@ -34,6 +34,7 @@ public class Status extends Screen {
 
         double attack = 0.0;
         if (player.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
+            //TODO: getValue NULLの可能性あり
             attack = player.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
         }
 
