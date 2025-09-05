@@ -29,6 +29,7 @@ public class Status {
         float saturation = player.getFoodData().getSaturationLevel();
 
         if (player.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
+            // TODO; getValue NULLの可能性あり
             attack = player.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
         }
 
