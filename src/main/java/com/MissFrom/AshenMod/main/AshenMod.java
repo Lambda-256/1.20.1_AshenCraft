@@ -1,19 +1,43 @@
 package com.MissFrom.AshenMod.main;
 
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.InputEvent;
 import com.MissFrom.AshenMod.main.status.level.KillExpEventHandler;
 import com.MissFrom.AshenMod.main.sync.PlayerLoginSyncHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import com.MissFrom.AshenMod.main.capability.CapabilityEventHandler;
+import org.lwjgl.glfw.GLFW;
 import com.MissFrom.AshenMod.main.network.NetworkHandler;
 
 @Mod("ashenmod")
+@Mod.EventBusSubscriber(modid = "ashenmod", value = Dist.CLIENT)
+
 public class AshenMod {
 
     public static final String MOD_ID = "ashenmod";
+
+    private static final KeyMapping STATUS_KEY = new KeyMapping(
+            "key.ashenmod.status",
+            GLFW.GLFW_KEY_O, // Oキーで開く
+            "key.categories.inventory"
+    );
+
+    @SubscribeEvent
+    public static void onKeyInput(InputEvent.Key event) {
+        if (STATUS_KEY.isDown()) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.player != null) {
+                mc.setScreen(new Status(mc.player));
+            }
+        }
+    }
 
     public AshenMod(){
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
