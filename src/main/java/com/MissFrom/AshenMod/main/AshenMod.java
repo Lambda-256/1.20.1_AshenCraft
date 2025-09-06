@@ -14,7 +14,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import com.MissFrom.AshenMod.main.capability.CapabilityEventHandler;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFW;
 import com.MissFrom.AshenMod.main.network.NetworkHandler;
 
 @Mod("ashenmod")
