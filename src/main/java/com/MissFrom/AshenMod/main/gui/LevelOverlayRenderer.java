@@ -1,6 +1,5 @@
 package com.MissFrom.AshenMod.main.gui;
 
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -27,6 +26,9 @@ public class LevelOverlayRenderer {
 
         // Capabilityのチェックを削除し、直接ClientLevelStorageを使用
         int level = ClientLevelStorage.getClientLevel();
+        // Capabilityから現在の経験値と次レベルまでの必要経験値を取得
+        int exp = ClientLevelStorage.getClientExperience();
+        int expToNext = ClientLevelStorage.getClientExpToNextLevel();
 
         // GuiGraphicsから描画情報を取得
         GuiGraphics graphics = event.getGuiGraphics();
@@ -40,11 +42,13 @@ public class LevelOverlayRenderer {
         int x = 10;      // ハート左横のXオフセット
         int y = screenHeight - 39; // デフォルトのハートY位置
 
-        // レベル文字列を作成
-        String text = "Lv " + level;
-
         // 描画（GuiGraphicsを使用）
-        graphics.drawString(font, text, x, y, 0xFFFFFF); // 白色で描画
+        graphics.drawString(font, "Lv " + level, x, y, 0xFFFFFF);
+        graphics.drawString(font,
+                exp + " / " + expToNext + " EXP",
+                x, y + font.lineHeight + 2,
+                0xFFFF00  // 黄色
+        );
     }
 }
 
