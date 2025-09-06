@@ -10,6 +10,7 @@ public interface IPlayerLevel {
     void setLevel(int level);
     // 経験値
     int getExperience();
+    int getExpToNextLevel();;
     void setExperience(int exp);
     void addExperience(int exp);
     // レベルアップ

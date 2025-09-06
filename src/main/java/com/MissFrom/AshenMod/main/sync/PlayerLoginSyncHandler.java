@@ -19,7 +19,11 @@ public class PlayerLoginSyncHandler {
         player.getCapability(PlayerLevelProvider.PLAYER_LEVEL).ifPresent(cap -> {
             NetworkHandler.CHANNEL.send(
                     PacketDistributor.PLAYER.with(() -> player),
-                    new LevelSyncPacket(cap.getLevel())
+                    new LevelSyncPacket(
+                            cap.getLevel(),
+                            cap.getExperience(),
+                            cap.getExpToNextLevel()
+                    )
             );
         });
     }
