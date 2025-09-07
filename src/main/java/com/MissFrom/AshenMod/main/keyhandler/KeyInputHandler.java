@@ -1,13 +1,8 @@
 package com.MissFrom.AshenMod.main.keyhandler;
 
-import com.MissFrom.AshenMod.main.gui.LevelUpMenu;
-import com.MissFrom.AshenMod.main.gui.LevelUpScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,30 +22,6 @@ public class KeyInputHandler {
         @SubscribeEvent
         public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
             event.register(OPEN_LEVEL_GUI);
-        }
-    }
-
-    // Forgeイベントバスでキー入力処理
-    @Mod.EventBusSubscriber(modid = AshenMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
-    public static class ForgeEvents {
-        @SubscribeEvent
-        public static void onKeyInput(InputEvent.Key event) {
-            if (OPEN_LEVEL_GUI.consumeClick()) {
-                Minecraft mc = Minecraft.getInstance();
-                if (mc.player != null) {
-                    // LevelUpMenuを作成
-                    LevelUpMenu menu = new LevelUpMenu(0, mc.player.getInventory());
-
-                    // LevelUpScreenを正しい引数で作成
-                    LevelUpScreen screen = new LevelUpScreen(
-                            menu,
-                            mc.player.getInventory(),
-                            Component.literal("Level Up")
-                    );
-
-                    mc.setScreen(screen);
-                }
-            }
         }
     }
 }
