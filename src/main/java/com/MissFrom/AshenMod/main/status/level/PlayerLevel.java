@@ -6,7 +6,7 @@ public class PlayerLevel implements IPlayerLevel {
     private static final int MAX_LEVEL = 120;
     private int level = 1;
     private int experience = 0;
-    private int experienceToNextLevel = 100;
+    private int experienceToNextLevel = calculateExpForNextLevel();
 
     @Override
     public int getLevel() {
@@ -24,6 +24,11 @@ public class PlayerLevel implements IPlayerLevel {
     }
 
     @Override
+    public int getExpToNextLevel() {
+        return experienceToNextLevel;
+    }
+
+    @Override
     public void setExperience(int exp) {
         this.experience = exp;
     }
@@ -31,10 +36,6 @@ public class PlayerLevel implements IPlayerLevel {
     @Override
     public void addExperience(int exp) {
         this.experience += exp;
-        // 重複コメントアウト
-//        while (canLevelUp()) {
-//            levelUp();
-//        }
     }
 
     @Override
@@ -45,8 +46,11 @@ public class PlayerLevel implements IPlayerLevel {
 
     @Override
     public void levelUp() {
-        level++;
+        if (!canLevelUp()) return;
+        // レベルアップに必要な経験値を消費
         experience -= experienceToNextLevel;
+        level++;
+        // 次レベルに必要な経験値を再計算
         experienceToNextLevel = calculateExpForNextLevel();
     }
 

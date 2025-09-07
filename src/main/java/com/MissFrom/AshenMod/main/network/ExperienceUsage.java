@@ -14,25 +14,19 @@ public class ExperienceUsage {
      */
     public void grantExpAndNotify(ServerPlayer player, int exp) {
         player.getCapability(PlayerLevelProvider.PLAYER_LEVEL).ifPresent(cap -> {
-            // 経験値を追加（自動レベルアップ処理は不要ならremove loop版にする）
             cap.addExperience(exp);
-
-            // 手動でレベルアップ判定・実行
-            if (cap.canLevelUp()) {
-                cap.levelUp();
-                NetworkHandler.CHANNEL.send(
-                        PacketDistributor.PLAYER.with(() -> player),
-                        new LevelSyncPacket(cap.getLevel())
-                );
-                player.sendSystemMessage(
-                        Component.literal("レベルアップ！ 現在のレベル: " + cap.getLevel())
-                );
-            } else {
-                // レベルアップしない場合は現在の経験値状況を通知
-                player.sendSystemMessage(
-                        Component.literal("経験値を " + exp + " 追加しました (現在EXP: " + cap.getExperience() + ")")
-                );
-            }
+            // クライアントに最新のレベル・経験値・必要経験値を同期
+            NetworkHandler.CHANNEL.send(
+                    PacketDistributor.PLAYER.with(() -> player),
+                    new LevelSyncPacket(
+                            cap.getLevel(),
+                            cap.getExperience(),
+                            cap.getExpToNextLevel()
+                    )
+            );
+            player.sendSystemMessage(
+                    Component.literal("経験値を " + exp + " 追加しました (現在EXP: " + cap.getExperience() + ")")
+            );
         });
     }
 }
