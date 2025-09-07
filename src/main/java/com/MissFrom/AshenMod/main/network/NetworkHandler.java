@@ -28,11 +28,18 @@ public class NetworkHandler {
                 .consumerMainThread(LevelSyncPacket::handle)
                 .add();
 
-        // レベルアップ要求パケット（クライアント → サーバー）
-        CHANNEL.messageBuilder(LevelUpRequestPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(LevelUpRequestPacket::encode)
-                .decoder(LevelUpRequestPacket::decode)
-                .consumerMainThread(LevelUpRequestPacket::handle)
+        // StatUpRequestPacket
+        CHANNEL.messageBuilder(StatUpRequestPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(StatUpRequestPacket::encode)
+                .decoder(StatUpRequestPacket::decode)
+                .consumerMainThread(StatUpRequestPacket::handle)
+                .add();
+
+        // StrengthSyncPacket
+        CHANNEL.messageBuilder(StrengthSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(StrengthSyncPacket::encode)
+                .decoder(StrengthSyncPacket::decode)
+                .consumerMainThread(StrengthSyncPacket::handle)
                 .add();
     }
 }
