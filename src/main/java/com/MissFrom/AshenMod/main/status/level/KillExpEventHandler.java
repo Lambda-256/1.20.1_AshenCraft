@@ -21,7 +21,7 @@ public class KillExpEventHandler {
         // 倒した相手がプレイヤー自身でないかチェック
         if (dead == player) return;
 
-        // 経験値量を決めるs
+        // 経験値量を決める
         int expGained = 10;
 
         // 経験値付与＆通知

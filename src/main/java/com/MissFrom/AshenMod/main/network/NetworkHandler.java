@@ -1,6 +1,7 @@
 package com.MissFrom.AshenMod.main.network;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import com.MissFrom.AshenMod.main.AshenMod;
@@ -20,10 +21,18 @@ public class NetworkHandler {
     }
 
     public static void register() {
-        CHANNEL.messageBuilder(LevelSyncPacket.class, id())
+        // レベル同期パケット（サーバー → クライアント）
+        CHANNEL.messageBuilder(LevelSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(LevelSyncPacket::encode)
                 .decoder(LevelSyncPacket::decode)
                 .consumerMainThread(LevelSyncPacket::handle)
+                .add();
+
+        // レベルアップ要求パケット（クライアント → サーバー）
+        CHANNEL.messageBuilder(LevelUpRequestPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(LevelUpRequestPacket::encode)
+                .decoder(LevelUpRequestPacket::decode)
+                .consumerMainThread(LevelUpRequestPacket::handle)
                 .add();
     }
 }
