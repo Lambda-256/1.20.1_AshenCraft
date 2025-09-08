@@ -1,6 +1,7 @@
 package com.MissFrom.AshenMod.main;
 
 import com.MissFrom.AshenMod.main.advancement.AdvancementTriggers;
+import com.MissFrom.AshenMod.main.sync.WeightSyncPacket;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -38,6 +39,7 @@ public class AshenMod {
         event.enqueueWork(() -> {
             NetworkHandler.register();
             AdvancementTriggers.register();
+            WeightSyncPacket.register();
         });
     }
 }
