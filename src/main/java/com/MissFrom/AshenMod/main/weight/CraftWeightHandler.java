@@ -25,7 +25,7 @@ public class CraftWeightHandler {
         }
 
         // クラフト入力コンテナを取得
-        Container craftMatrix = event.getInventory();  // net.minecraft.world.Container
+        Container craftMatrix = event.getInventory();
 
         // 入力素材の重量合計を算出
         double totalWeight = 0.0;

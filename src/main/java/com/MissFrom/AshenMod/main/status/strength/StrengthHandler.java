@@ -4,13 +4,10 @@ import com.MissFrom.AshenMod.main.AshenMod;
 import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.weight.InventoryWeightHandler;
 import com.MissFrom.AshenMod.main.weight.ItemWeightCalculator;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -49,7 +46,7 @@ public class StrengthHandler {
         if (!(event.player instanceof ServerPlayer player)) return;
 
         double current = InventoryWeightHandler.getCurrentWeight(player);
-        double max     = getMaxWeight(player);
+        double max = getMaxWeight(player);
         boolean overloaded = current > max;
 
         var speedAttr = player.getAttribute(Attributes.MOVEMENT_SPEED);
