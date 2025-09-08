@@ -1,5 +1,6 @@
 package com.MissFrom.AshenMod.main.network;
 
+import com.MissFrom.AshenMod.main.sync.LevelSyncPacket;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.PacketDistributor;

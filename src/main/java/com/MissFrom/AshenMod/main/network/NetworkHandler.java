@@ -1,5 +1,7 @@
 package com.MissFrom.AshenMod.main.network;
 
+import com.MissFrom.AshenMod.main.sync.LevelSyncPacket;
+import com.MissFrom.AshenMod.main.sync.StrengthSyncPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;

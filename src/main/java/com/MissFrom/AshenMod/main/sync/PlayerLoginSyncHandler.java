@@ -1,6 +1,5 @@
 package com.MissFrom.AshenMod.main.sync;
 
-import com.MissFrom.AshenMod.main.network.StrengthSyncPacket;
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,7 +8,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.MissFrom.AshenMod.main.AshenMod;
 import com.MissFrom.AshenMod.main.network.NetworkHandler;
-import com.MissFrom.AshenMod.main.network.LevelSyncPacket;
 import net.minecraftforge.network.PacketDistributor;
 
 @Mod.EventBusSubscriber(modid = AshenMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
