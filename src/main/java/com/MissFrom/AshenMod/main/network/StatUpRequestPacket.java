@@ -4,8 +4,11 @@ import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.IStrength;
 import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
+import com.MissFrom.AshenMod.main.status.technique.ITechnique;
+import com.MissFrom.AshenMod.main.status.technique.TechniqueProvider;
 import com.MissFrom.AshenMod.main.sync.LevelSyncPacket;
 import com.MissFrom.AshenMod.main.sync.StrengthSyncPacket;
+import com.MissFrom.AshenMod.main.sync.TechniqueSyncPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -41,6 +44,12 @@ public class StatUpRequestPacket {
                     player.getCapability(StrengthProvider.STRENGTH_CAPABILITY)
                             .ifPresent(str -> str.addStrength(1));
                 }
+
+                // 技術に割当（TechniqueProviderを使用）
+                if (pkt.stat == StatType.TECHNIQUE) {
+                    player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY)
+                            .ifPresent(tec -> tec.addTechnique(1));
+                }
                 // TODO: 他ステータスは後で追加
 
                 // 同期：レベル・EXP・ステータス
@@ -57,6 +66,15 @@ public class StatUpRequestPacket {
                         new StrengthSyncPacket(
                                 player.getCapability(StrengthProvider.STRENGTH_CAPABILITY)
                                         .map(IStrength::getStrength).orElse(1)
+                        )
+                );
+
+                // 技術値の同期
+                NetworkHandler.CHANNEL.send(
+                        PacketDistributor.PLAYER.with(() -> player),
+                        new TechniqueSyncPacket(
+                                player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY)
+                                        .map(ITechnique::getTechnique).orElse(1)
                         )
                 );
 

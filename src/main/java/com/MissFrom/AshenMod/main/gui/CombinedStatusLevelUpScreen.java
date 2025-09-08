@@ -5,6 +5,7 @@ import com.MissFrom.AshenMod.main.storage.ClientStrengthStorage;
 import com.MissFrom.AshenMod.main.network.NetworkHandler;
 import com.MissFrom.AshenMod.main.network.StatUpRequestPacket;
 import com.MissFrom.AshenMod.main.status.StatType;
+import com.MissFrom.AshenMod.main.storage.ClientTechniqueStorage;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -100,8 +101,17 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
 
             // ステータス名と値
             // TODO: ステータス追加
+
+
             int value = (stat == StatType.STRENGTH)
                     ? ClientStrengthStorage.getClientStrength()
+                    : 1;
+            guiGraphics.drawString(font,
+                    stat.getDisplayName() + ": " + value,
+                    baseX, rowY - 1, 0xFFFFFF);
+
+            value = (stat == StatType.TECHNIQUE)
+                    ? ClientTechniqueStorage.getClientTechnique()
                     : 1;
             guiGraphics.drawString(font,
                     stat.getDisplayName() + ": " + value,
@@ -176,6 +186,9 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
             // ボタンのアクティブ状態制御
             // TODO: ステータス追加
             if (stat != StatType.STRENGTH) {
+                btn.active = false;
+            }
+            if (stat != StatType.TECHNIQUE) {
                 btn.active = false;
             } else {
                 int exp = ClientLevelStorage.getClientExperience();

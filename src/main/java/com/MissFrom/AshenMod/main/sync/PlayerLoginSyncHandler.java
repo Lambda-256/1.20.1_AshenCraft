@@ -2,6 +2,7 @@ package com.MissFrom.AshenMod.main.sync;
 
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
+import com.MissFrom.AshenMod.main.status.technique.TechniqueProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,6 +35,14 @@ public class PlayerLoginSyncHandler {
             NetworkHandler.CHANNEL.send(
                     PacketDistributor.PLAYER.with(() -> player),
                     new StrengthSyncPacket(cap.getStrength())
+            );
+        });
+
+        // 技術同期
+        player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY).ifPresent(cap -> {
+            NetworkHandler.CHANNEL.send(
+                    PacketDistributor.PLAYER.with(() -> player),
+                    new TechniqueSyncPacket(cap.getTechnique())
             );
         });
     }
