@@ -1,6 +1,7 @@
 package com.MissFrom.AshenMod.main.status.vitality;
 
 import com.MissFrom.AshenMod.main.AshenMod;
+import com.MissFrom.AshenMod.main.skill.passive.PassiveSkillManager;
 import com.MissFrom.AshenMod.main.status.StatType;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -85,6 +86,8 @@ public class VitalityHandler {
     public static void onStatUpgrade(ServerPlayer player, StatType statType) {
         if (statType == StatType.VITALITY) {
             updatePlayerHealth(player);
+            // パッシブスキルチェック
+            PassiveSkillManager.checkAndApplyPassives(player);
         }
     }
 }
