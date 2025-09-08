@@ -1,5 +1,7 @@
 package com.MissFrom.AshenMod.main.network;
 
+import com.MissFrom.AshenMod.main.advancement.AdvancementTriggers;
+import com.MissFrom.AshenMod.main.advancement.PlayerVitalityCriterion;
 import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.IStrength;
@@ -65,6 +67,8 @@ public class StatUpRequestPacket {
                             .ifPresent(str -> {
                                 str.addVitality(1);
                                 VitalityHandler.onStatUpgrade(player, StatType.VITALITY);
+                                // 実績トリガー発火（修正版）
+                                AdvancementTriggers.VITALITY_TRIGGER.trigger(player, str.getVitality());
                             });
                 }
 
