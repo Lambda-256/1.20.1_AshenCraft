@@ -8,11 +8,16 @@ public class ItemWeightCalculator {
 
     /** スタック全体の重量を返す */
     public static double calculateWeight(ItemStack stack) {
+        // カスタム重量タグがあれば優先して返す
+        if (stack.hasTag() && stack.getTag().contains("CustomWeight")) {
+            return stack.getTag().getDouble("CustomWeight");
+        }
+        // 通常の素材ベース重量
         double unit = getUnitWeight(stack.getItem());
         return unit * stack.getCount();
     }
 
-    /** アイテム単体の重量 */
+    /** アイテム単体の重量（既存実装） */
     private static double getUnitWeight(Item item) {
         // 木材系
         if (item == Items.OAK_PLANKS || item == Items.BIRCH_PLANKS ||
@@ -27,13 +32,11 @@ public class ItemWeightCalculator {
                 item == Items.STICK) {
             return MaterialWeight.WOOD;
         }
-
         // 石系
         if (item == Items.STONE || item == Items.COBBLESTONE ||
                 item == Items.STONE_BRICKS || item == Items.MOSSY_COBBLESTONE) {
             return MaterialWeight.STONE;
         }
-
         // 鉄系
         if (item == Items.IRON_INGOT || item == Items.IRON_ORE ||
                 item == Items.RAW_IRON || item == Items.IRON_BLOCK ||
@@ -44,7 +47,6 @@ public class ItemWeightCalculator {
                 item == Items.IRON_BOOTS || item == Items.SHIELD) {
             return MaterialWeight.IRON;
         }
-
         // 金系
         if (item == Items.GOLD_INGOT || item == Items.GOLD_ORE ||
                 item == Items.RAW_GOLD || item == Items.GOLD_BLOCK ||
@@ -55,7 +57,6 @@ public class ItemWeightCalculator {
                 item == Items.GOLDEN_BOOTS) {
             return MaterialWeight.GOLD;
         }
-
         // ネザライト系
         if (item == Items.NETHERITE_INGOT || item == Items.NETHERITE_SCRAP ||
                 item == Items.ANCIENT_DEBRIS || item == Items.NETHERITE_BLOCK ||
@@ -66,7 +67,6 @@ public class ItemWeightCalculator {
                 item == Items.NETHERITE_BOOTS) {
             return MaterialWeight.NETHERITE;
         }
-
         return MaterialWeight.DEFAULT;
     }
 }
