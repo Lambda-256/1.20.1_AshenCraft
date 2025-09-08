@@ -59,6 +59,10 @@ public class StatUpRequestPacket {
                                         .map(IStrength::getStrength).orElse(1)
                         )
                 );
+
+                // TODO: 他ステータスは後で追加
+
+
             });
         });
         ctx.get().setPacketHandled(true);

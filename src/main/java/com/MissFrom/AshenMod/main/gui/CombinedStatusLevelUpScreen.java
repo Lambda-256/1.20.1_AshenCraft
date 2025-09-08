@@ -99,6 +99,7 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
             guiGraphics.fill(leftPos + 5, rowY - 3, leftPos + 176 - 5, rowY - 2, lineColor);
 
             // ステータス名と値
+            // TODO: ステータス追加
             int value = (stat == StatType.STRENGTH)
                     ? ClientStrengthStorage.getClientStrength()
                     : 1;
@@ -173,6 +174,7 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
                     .build();
 
             // ボタンのアクティブ状態制御
+            // TODO: ステータス追加
             if (stat != StatType.STRENGTH) {
                 btn.active = false;
             } else {
