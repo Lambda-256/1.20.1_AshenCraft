@@ -1,0 +1,20 @@
+{
+  "parent": "ashenmod:strength/a_power_that_invites_doom",
+  "display": {
+    "icon": { "item": "minecraft:nether_star" },
+    "title": { "translate": "advancement.ashenmod.incarnation_of_calamity.title" },
+    "description": { "translate": "advancement.ashenmod.incarnation_of_calamity.description" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "reach_strength_99": {
+      "trigger": "ashenmod:player_strength_level",
+      "conditions": {
+        "level": 99
+      }
+    }
+  }
+}

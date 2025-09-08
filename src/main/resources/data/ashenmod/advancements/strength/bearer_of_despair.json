@@ -1,0 +1,20 @@
+{
+  "parent": "ashenmod:strength/mighty_arm",
+  "display": {
+    "icon": { "item": "minecraft:nether_star" },
+    "title": { "translate": "advancement.ashenmod.bearer_of_despair.title" },
+    "description": { "translate": "advancement.ashenmod.bearer_of_despair.description" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "reach_strength_50": {
+      "trigger": "ashenmod:player_strength_level",
+      "conditions": {
+        "level": 50
+      }
+    }
+  }
+}
