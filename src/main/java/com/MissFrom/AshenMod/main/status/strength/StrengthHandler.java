@@ -1,6 +1,7 @@
 package com.MissFrom.AshenMod.main.status.strength;
 
 import com.MissFrom.AshenMod.main.AshenMod;
+import com.MissFrom.AshenMod.main.skill.passive.PassiveSkillManager;
 import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.weight.InventoryWeightHandler;
 import com.MissFrom.AshenMod.main.weight.ItemWeightCalculator;
@@ -28,13 +29,12 @@ public class StrengthHandler {
     }
 
     /**
-     * 筋力ステータス変更時の処理
+     * TODO: プレイヤーの筋力攻撃力を筋力値に応じて更新
      */
-    public static void onStatUpgrade(ServerPlayer player, StatType statType) {
-        // 筋力ステータスに応じて攻撃力上昇
-//        if (statType == StatType.STRENGTH) {
-//
-//        }
+    public static void updatePlayerStrength(ServerPlayer player) {
+//        player.getCapability(StrengthProvider.STRENGTH_CAPABILITY).ifPresent( v -> {
+//            int strength = v.getStrength();
+//        });
     }
 
     /**
@@ -71,5 +71,13 @@ public class StrengthHandler {
             }
         }
         return sum;
+    }
+
+    public static void onStatUpgrade(ServerPlayer player, StatType statType) {
+        if (statType == StatType.STRENGTH) {
+            updatePlayerStrength(player);
+            // パッシブスキルチェック
+            PassiveSkillManager.checkAndApplyPassives(player);
+        }
     }
 }
