@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": { "item": "minecraft:campfire" },
+    "title": { "translate": "advancement.ashenmod.bonfirelit.title" },
+    "description": { "translate": "advancement.ashenmod.bonfirelit.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "ashenmod:textures/gui/advancements/advancement.png"
+  },
+  "criteria": {
+    "start_game": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "rewards": {
+    "experience": 0
+  }
+}
