@@ -1,5 +1,6 @@
 package com.MissFrom.AshenMod.main.gui;
 
+import com.MissFrom.AshenMod.main.storage.ClientWeightStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -29,6 +30,9 @@ public class LevelOverlayRenderer {
         // Capabilityから現在の経験値と次レベルまでの必要経験値を取得
         int exp = ClientLevelStorage.getClientExperience();
         int expToNext = ClientLevelStorage.getClientExpToNextLevel();
+        // 重量
+        double currentWeight = ClientWeightStorage.getCurrentWeight();
+        double maxWeight = ClientWeightStorage.getMaxWeight();
 
         // GuiGraphicsから描画情報を取得
         GuiGraphics graphics = event.getGuiGraphics();
@@ -49,6 +53,11 @@ public class LevelOverlayRenderer {
                 x, y + font.lineHeight + 2,
                 0xFFFF00  // 黄色
         );
+        // 重量描画（レベル下からさらにオフセット）
+        int weightY = y + (font.lineHeight + 2) * 2;
+        String weightText = String.format("%.1f / %.1f WT", currentWeight, maxWeight);
+        int color = currentWeight > maxWeight ? 0xFF5555 : 0x55FF55;
+        graphics.drawString(font, weightText, x, weightY, color);
     }
 }
 
