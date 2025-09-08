@@ -1,4 +1,4 @@
-package com.MissFrom.AshenMod.main.network;
+package com.MissFrom.AshenMod.main.storage;
 
 public class ClientStrengthStorage {
     private static int clientStrength = 1;

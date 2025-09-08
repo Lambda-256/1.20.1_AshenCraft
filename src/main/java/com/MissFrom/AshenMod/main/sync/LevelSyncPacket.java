@@ -1,5 +1,6 @@
-package com.MissFrom.AshenMod.main.network;
+package com.MissFrom.AshenMod.main.sync;
 
+import com.MissFrom.AshenMod.main.storage.ClientLevelStorage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;

@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import com.MissFrom.AshenMod.main.AshenMod;
-import com.MissFrom.AshenMod.main.network.ClientLevelStorage;
+import com.MissFrom.AshenMod.main.storage.ClientLevelStorage;
 
 @Mod.EventBusSubscriber(modid = AshenMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LevelOverlayRenderer {

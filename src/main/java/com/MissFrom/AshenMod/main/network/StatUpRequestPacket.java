@@ -4,6 +4,8 @@ import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.IStrength;
 import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
+import com.MissFrom.AshenMod.main.sync.LevelSyncPacket;
+import com.MissFrom.AshenMod.main.sync.StrengthSyncPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

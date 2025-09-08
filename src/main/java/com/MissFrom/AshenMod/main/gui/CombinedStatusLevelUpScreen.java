@@ -1,7 +1,7 @@
 package com.MissFrom.AshenMod.main.gui;
 
-import com.MissFrom.AshenMod.main.network.ClientLevelStorage;
-import com.MissFrom.AshenMod.main.network.ClientStrengthStorage;
+import com.MissFrom.AshenMod.main.storage.ClientLevelStorage;
+import com.MissFrom.AshenMod.main.storage.ClientStrengthStorage;
 import com.MissFrom.AshenMod.main.network.NetworkHandler;
 import com.MissFrom.AshenMod.main.network.StatUpRequestPacket;
 import com.MissFrom.AshenMod.main.status.StatType;
