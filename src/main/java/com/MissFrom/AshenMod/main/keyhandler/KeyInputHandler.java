@@ -1,7 +1,7 @@
 package com.MissFrom.AshenMod.main.keyhandler;
 
+import com.MissFrom.AshenMod.main.gui.CombinedStatusLevelUpScreen;
 import com.MissFrom.AshenMod.main.gui.LevelUpMenu;
-import com.MissFrom.AshenMod.main.gui.LevelUpScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -42,10 +42,11 @@ public class KeyInputHandler {
                     LevelUpMenu menu = new LevelUpMenu(0, mc.player.getInventory());
 
                     // LevelUpScreenを正しい引数で作成
-                    LevelUpScreen screen = new LevelUpScreen(
+                    CombinedStatusLevelUpScreen screen = new CombinedStatusLevelUpScreen(
                             menu,
                             mc.player.getInventory(),
-                            Component.literal("Level Up")
+                            Component.literal("Level Up"),
+                            mc.player
                     );
 
                     mc.setScreen(screen);
