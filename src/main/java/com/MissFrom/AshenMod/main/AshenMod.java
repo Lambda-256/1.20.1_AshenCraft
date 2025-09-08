@@ -23,22 +23,6 @@ public class AshenMod {
 
     public static final String MOD_ID = "ashenmod";
 
-    private static final KeyMapping STATUS_KEY = new KeyMapping(
-            "key.ashenmod.status",
-            GLFW.GLFW_KEY_O, // Oキーで開く
-            "key.categories.inventory"
-    );
-
-    @SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event) {
-        if (STATUS_KEY.isDown()) {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.player != null) {
-                mc.setScreen(new Status(mc.player));
-            }
-        }
-    }
-
     public AshenMod(){
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
