@@ -30,14 +30,14 @@ public class Strength implements IStrength {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag saveToNBT() {
         CompoundTag tag = new CompoundTag();
         tag.putInt("strength", strength);
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void loadFromNBT(CompoundTag nbt) {
         strength = nbt.getInt("strength");
     }
 }

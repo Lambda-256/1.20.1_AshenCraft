@@ -45,7 +45,7 @@ public class CapabilityEventHandler {
             // 筋力値データの継承
             event.getOriginal().getCapability(StrengthProvider.STRENGTH_CAPABILITY).ifPresent(oldCap -> {
                 event.getEntity().getCapability(StrengthProvider.STRENGTH_CAPABILITY).ifPresent(newCap -> {
-                    newCap.deserializeNBT(oldCap.serializeNBT());
+                    newCap.loadFromNBT(oldCap.saveToNBT());
                 });
             });
         }
