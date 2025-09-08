@@ -4,7 +4,7 @@ public enum StatType {
     VITALITY("生命力"),
     ENDURANCE("持久力"),
     STRENGTH("筋力"),
-    SKILL("技量"),
+    TECHNIQUE("技術"),
     BLOODTINGE("血質"),
     ARCANE("神秘");
 
