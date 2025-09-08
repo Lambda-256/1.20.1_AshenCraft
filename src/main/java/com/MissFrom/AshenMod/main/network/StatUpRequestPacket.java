@@ -4,8 +4,11 @@ import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.IStrength;
 import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
+import com.MissFrom.AshenMod.main.status.vitality.IVitality;
+import com.MissFrom.AshenMod.main.status.vitality.VitalityProvider;
 import com.MissFrom.AshenMod.main.sync.LevelSyncPacket;
 import com.MissFrom.AshenMod.main.sync.StrengthSyncPacket;
+import com.MissFrom.AshenMod.main.sync.VitalitySyncPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -36,18 +39,30 @@ public class StatUpRequestPacket {
                 // 経験値消費・レベルアップ
                 cap.levelUp();
 
+                // TODO: 他ステータスは後で追加
                 // 筋力のみ割当（既存のStrengthProviderを使用）
                 if (pkt.stat == StatType.STRENGTH) {
                     player.getCapability(StrengthProvider.STRENGTH_CAPABILITY)
                             .ifPresent(str -> str.addStrength(1));
+                } else if (pkt.stat == StatType.VITALITY) {
+                    player.getCapability(VitalityProvider.VITALITY_CAPABILITY)
+                            .ifPresent(str -> str.addVitality(1));
                 }
-                // TODO: 他ステータスは後で追加
 
                 // 同期：レベル・EXP・ステータス
                 NetworkHandler.CHANNEL.send(
                         PacketDistributor.PLAYER.with(() -> player),
                         new LevelSyncPacket(
                                 cap.getLevel(), cap.getExperience(), cap.getExpToNextLevel()
+                        )
+                );
+
+                // 生命力値の同期
+                NetworkHandler.CHANNEL.send(
+                        PacketDistributor.PLAYER.with(() -> player),
+                        new VitalitySyncPacket(
+                                player.getCapability(VitalityProvider.VITALITY_CAPABILITY)
+                                        .map(IVitality::getVitality).orElse(1)
                         )
                 );
 

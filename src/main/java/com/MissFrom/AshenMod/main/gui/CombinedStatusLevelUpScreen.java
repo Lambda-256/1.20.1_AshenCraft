@@ -5,6 +5,7 @@ import com.MissFrom.AshenMod.main.storage.ClientStrengthStorage;
 import com.MissFrom.AshenMod.main.network.NetworkHandler;
 import com.MissFrom.AshenMod.main.network.StatUpRequestPacket;
 import com.MissFrom.AshenMod.main.status.StatType;
+import com.MissFrom.AshenMod.main.storage.ClientVitalityStorage;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -100,7 +101,9 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
 
             // ステータス名と値
             // TODO: ステータス追加
-            int value = (stat == StatType.STRENGTH)
+            int value = (stat == StatType.VITALITY)
+                    ? ClientVitalityStorage.getClientVitality()
+                    : (stat == StatType.STRENGTH)
                     ? ClientStrengthStorage.getClientStrength()
                     : 1;
             guiGraphics.drawString(font,
@@ -158,6 +161,11 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
         int statStartY = y + 10 + lineHeight + 2;
         StatType[] stats = StatType.values();
 
+        // 経験値チェック
+        int exp = ClientLevelStorage.getClientExperience();
+        int expToNext = ClientLevelStorage.getClientExpToNextLevel();
+        boolean hasEnoughExp = exp >= expToNext;
+
         for (int i = 0; i < stats.length; i++) {
             StatType stat = stats[i];
             int rowY = statStartY + i * lineHeight;
@@ -174,14 +182,8 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
                     .build();
 
             // ボタンのアクティブ状態制御
-            // TODO: ステータス追加
-            if (stat != StatType.STRENGTH) {
-                btn.active = false;
-            } else {
-                int exp = ClientLevelStorage.getClientExperience();
-                int expToNext = ClientLevelStorage.getClientExpToNextLevel();
-                btn.active = exp >= expToNext;
-            }
+            btn.active = hasEnoughExp;
+
             addRenderableWidget(btn);
         }
     }
