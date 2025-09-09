@@ -1,0 +1,20 @@
+{
+  "parent": "ashenmod:bonfirelit",
+  "display": {
+    "icon": { "item": "minecraft:gold_nugget" },
+    "title": { "translate": "advancement.ashenmod.grip_strength.title" },
+    "description": { "translate": "advancement.ashenmod.grip_strength.description" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "reach_strength_10": {
+      "trigger": "ashenmod:player_strength_level",
+      "conditions": {
+        "level": 10
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import com.MissFrom.AshenMod.main.network.NetworkHandler;
 import com.MissFrom.AshenMod.main.network.StatUpRequestPacket;
 import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.storage.ClientVitalityStorage;
+import com.MissFrom.AshenMod.main.storage.ClientWeightStorage;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -13,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.PacketDistributor;
 
 public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUpMenu> {
@@ -130,12 +130,9 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
             attack = player.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
         }
 
-        // インベントリ使用スロット数計算
-        int usedSlots = 0;
-        for (ItemStack stack : player.getInventory().items) {
-            if (!stack.isEmpty()) usedSlots++;
-        }
-        int totalSlots = player.getInventory().items.size();
+        // 重量取得（クライアント同期済み）
+        double currentWeight = ClientWeightStorage.getCurrentWeight();
+        double maxWeight = ClientWeightStorage.getMaxWeight();
 
         // ステータス描画
         guiGraphics.drawString(font, "=== ステータス ===", rightPanelX, rightPanelY, 0xFFFFFF, false);
@@ -149,8 +146,11 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
                 rightPanelX, rightPanelY + 65, 0x55FF55, false);
         guiGraphics.drawString(font, "EnchantLv: " + level,
                 rightPanelX, rightPanelY + 80, 0xFFFF55, false);
-        guiGraphics.drawString(font, "Inventory: " + usedSlots + " / " + totalSlots,
-                rightPanelX, rightPanelY + 95, 0xFFFFFF, false);
+        // 重量表示
+        String weightText = String.format("Weight: %.1f / %.1f", currentWeight, maxWeight);
+        int color = currentWeight > maxWeight ? 0xFF5555 : 0x55FF55;
+        guiGraphics.drawString(font, weightText,
+                rightPanelX, rightPanelY + 95, color, false);
     }
 
     @Override

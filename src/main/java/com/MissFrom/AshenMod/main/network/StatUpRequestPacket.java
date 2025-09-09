@@ -1,7 +1,6 @@
 package com.MissFrom.AshenMod.main.network;
 
 import com.MissFrom.AshenMod.main.advancement.AdvancementTriggers;
-import com.MissFrom.AshenMod.main.advancement.PlayerVitalityCriterion;
 import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.IStrength;
@@ -61,7 +60,13 @@ public class StatUpRequestPacket {
                 // 筋力のみ割当（既存のStrengthProviderを使用）
                 if (pkt.stat == StatType.STRENGTH) {
                     player.getCapability(StrengthProvider.STRENGTH_CAPABILITY)
-                            .ifPresent(str -> str.addStrength(1));
+                            .ifPresent(str -> {
+                                str.addStrength(1);
+                                // 筋力ステータスに応じて攻撃力上昇
+//                                StrengthHandler.onStatUpgrade(player, StatType.STRENGTH);
+                                // 実績トリガー発火
+                                AdvancementTriggers.STRENGTH_TRIGGER.trigger(player, str.getStrength());
+                            });
                 } else if (pkt.stat == StatType.VITALITY) {
                     player.getCapability(VitalityProvider.VITALITY_CAPABILITY)
                             .ifPresent(str -> {

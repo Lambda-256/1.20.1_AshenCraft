@@ -6,5 +6,20 @@
   "advancement.ashenmod.golden_body.description": "生命力が50に達し、黄金の肉体を手に入れた。",
 
   "advancement.ashenmod.did_something.title": "今何かしたか？",
-  "advancement.ashenmod.did_something.description": "生命力が99に達し、限界を超えた。"
+  "advancement.ashenmod.did_something.description": "生命力が99に達し、限界を超えた。",
+
+  "advancement.ashenmod.grip_strength.title": "握力の芽生え",
+  "advancement.ashenmod.grip_strength.description": "小さき筋が芽吹き、人は初めて武器を持つに足る。それはただの始まりにすぎない。",
+
+  "advancement.ashenmod.mighty_arm.title": "獣の剛腕",
+  "advancement.ashenmod.mighty_arm.description": "人の筋は肥大し、その力は獣を思わせる。狩人か、あるいは獲物か。",
+
+  "advancement.ashenmod.bearer_of_despair.title": "絶望の担い手",
+  "advancement.ashenmod.bearer_of_despair.description": "力は人を救わず、むしろ絶望を撒き散らす。強き腕の影に、救済はない。",
+
+  "advancement.ashenmod.a_power_that_invites_doom.title": "破滅を招く力",
+  "advancement.ashenmod.a_power_that_invites_doom.description": "その剛力は理を拒み、世界すら軋ませる。力の先に待つのは、破滅の兆し。",
+
+  "advancement.ashenmod.incarnation_of_calamity.title": "災厄の権化",
+  "advancement.ashenmod.incarnation_of_calamity.description": "人の姿はとうに失われ、ただ災厄そのものとして在る。力を極めし者の、避け得ぬ結末。"
 }
