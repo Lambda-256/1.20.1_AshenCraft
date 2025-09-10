@@ -106,17 +106,14 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
                     ? ClientVitalityStorage.getClientVitality()
                     : (stat == StatType.STRENGTH)
                     ? ClientStrengthStorage.getClientStrength()
+                    : (stat == StatType.TECHNIQUE)
+                    ? ClientTechniqueStorage.getClientTechnique()
                     : 1;
+
             guiGraphics.drawString(font,
                     stat.getDisplayName() + ": " + value,
                     baseX, rowY - 1, 0xFFFFFF);
 
-            value = (stat == StatType.TECHNIQUE)
-                    ? ClientTechniqueStorage.getClientTechnique()
-                    : 1;
-            guiGraphics.drawString(font,
-                    stat.getDisplayName() + ": " + value,
-                    baseX, rowY - 1, 0xFFFFFF);
         }
     }
 

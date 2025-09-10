@@ -52,6 +52,10 @@ public class StatUpRequestPacket {
                     canUpgrade = player.getCapability(VitalityProvider.VITALITY_CAPABILITY)
                             .map(vit -> vit.getVitality() < 99)
                             .orElse(false);
+                } else if (pkt.stat == StatType.TECHNIQUE){
+                    canUpgrade = player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY)
+                            .map(tec -> tec.getTechnique() < 99)
+                            .orElse(false);
                 }
 
                 // ステータスが上限に達している場合は無視
@@ -73,10 +77,8 @@ public class StatUpRequestPacket {
                                 // 実績トリガー発火（修正版）
                                 AdvancementTriggers.VITALITY_TRIGGER.trigger(player, str.getVitality());
                             });
-                }
-
-                // 技術に割当（TechniqueProviderを使用）
-                if (pkt.stat == StatType.TECHNIQUE) {
+                    //TODO: 下記の条件文が常にtrueの可能性あり
+                } else if (pkt.stat == StatType.TECHNIQUE) {
                     player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY)
                             .ifPresent(tec -> tec.addTechnique(1));
                 }
