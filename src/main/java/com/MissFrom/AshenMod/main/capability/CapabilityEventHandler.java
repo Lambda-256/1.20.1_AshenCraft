@@ -1,6 +1,7 @@
 package com.MissFrom.AshenMod.main.capability;
 
 import com.MissFrom.AshenMod.main.status.vitality.VitalityProvider;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import com.MissFrom.AshenMod.main.AshenMod;
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
+import com.MissFrom.AshenMod.main.status.technique.TechniqueProvider;
 
 @Mod.EventBusSubscriber(modid = AshenMod.MOD_ID)
 public class CapabilityEventHandler {
@@ -36,6 +38,12 @@ public class CapabilityEventHandler {
                     new ResourceLocation(AshenMod.MOD_ID, "player_strength"),
                     new StrengthProvider()
             );
+
+            // 新しい技術値Capability
+            event.addCapability(
+                    new ResourceLocation(AshenMod.MOD_ID, "player_technique"),
+                    new TechniqueProvider()
+            );
         }
     }
 
@@ -59,6 +67,13 @@ public class CapabilityEventHandler {
             // 筋力値データの継承
             event.getOriginal().getCapability(StrengthProvider.STRENGTH_CAPABILITY).ifPresent(oldCap -> {
                 event.getEntity().getCapability(StrengthProvider.STRENGTH_CAPABILITY).ifPresent(newCap -> {
+                    newCap.loadFromNBT(oldCap.saveToNBT());
+                });
+            });
+
+            // 技術値データの継承
+            event.getOriginal().getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY).ifPresent(oldCap -> {
+                event.getEntity().getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY).ifPresent(newCap -> {
                     newCap.loadFromNBT(oldCap.saveToNBT());
                 });
             });

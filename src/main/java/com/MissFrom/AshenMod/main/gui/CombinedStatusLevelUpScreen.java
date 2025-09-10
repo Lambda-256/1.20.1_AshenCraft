@@ -6,6 +6,7 @@ import com.MissFrom.AshenMod.main.network.NetworkHandler;
 import com.MissFrom.AshenMod.main.network.StatUpRequestPacket;
 import com.MissFrom.AshenMod.main.status.StatType;
 import com.MissFrom.AshenMod.main.storage.ClientVitalityStorage;
+import com.MissFrom.AshenMod.main.storage.ClientTechniqueStorage;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -105,10 +106,14 @@ public class CombinedStatusLevelUpScreen extends AbstractContainerScreen<LevelUp
                     ? ClientVitalityStorage.getClientVitality()
                     : (stat == StatType.STRENGTH)
                     ? ClientStrengthStorage.getClientStrength()
+                    : (stat == StatType.TECHNIQUE)
+                    ? ClientTechniqueStorage.getClientTechnique()
                     : 1;
+
             guiGraphics.drawString(font,
                     stat.getDisplayName() + ": " + value,
                     baseX, rowY - 1, 0xFFFFFF);
+
         }
     }
 

@@ -3,6 +3,7 @@ package com.MissFrom.AshenMod.main.network;
 import com.MissFrom.AshenMod.main.sync.LevelSyncPacket;
 import com.MissFrom.AshenMod.main.sync.StrengthSyncPacket;
 import com.MissFrom.AshenMod.main.sync.VitalitySyncPacket;
+import com.MissFrom.AshenMod.main.sync.TechniqueSyncPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
@@ -50,6 +51,13 @@ public class NetworkHandler {
                 .encoder(StrengthSyncPacket::encode)
                 .decoder(StrengthSyncPacket::decode)
                 .consumerMainThread(StrengthSyncPacket::handle)
+                .add();
+
+        // TechniqueSyncPacket
+        CHANNEL.messageBuilder(TechniqueSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(TechniqueSyncPacket::encode)
+                .decoder(TechniqueSyncPacket::decode)
+                .consumerMainThread(TechniqueSyncPacket::handle)
                 .add();
     }
 }

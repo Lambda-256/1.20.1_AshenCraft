@@ -9,9 +9,12 @@ import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
 import com.MissFrom.AshenMod.main.status.vitality.IVitality;
 import com.MissFrom.AshenMod.main.status.vitality.VitalityHandler;
 import com.MissFrom.AshenMod.main.status.vitality.VitalityProvider;
+import com.MissFrom.AshenMod.main.status.technique.ITechnique;
+import com.MissFrom.AshenMod.main.status.technique.TechniqueProvider;
 import com.MissFrom.AshenMod.main.sync.LevelSyncPacket;
 import com.MissFrom.AshenMod.main.sync.StrengthSyncPacket;
 import com.MissFrom.AshenMod.main.sync.VitalitySyncPacket;
+import com.MissFrom.AshenMod.main.sync.TechniqueSyncPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -49,6 +52,10 @@ public class StatUpRequestPacket {
                     canUpgrade = player.getCapability(VitalityProvider.VITALITY_CAPABILITY)
                             .map(vit -> vit.getVitality() < 99)
                             .orElse(false);
+                } else if (pkt.stat == StatType.TECHNIQUE){
+                    canUpgrade = player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY)
+                            .map(tec -> tec.getTechnique() < 99)
+                            .orElse(false);
                 }
 
                 // ステータスが上限に達している場合は無視
@@ -70,7 +77,12 @@ public class StatUpRequestPacket {
                                 // 実績トリガー発火（修正版）
                                 AdvancementTriggers.VITALITY_TRIGGER.trigger(player, str.getVitality());
                             });
+                    //TODO: 下記の条件文が常にtrueの可能性あり
+                } else if (pkt.stat == StatType.TECHNIQUE) {
+                    player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY)
+                            .ifPresent(tec -> tec.addTechnique(1));
                 }
+                // TODO: 他ステータスは後で追加
 
                 // 同期：レベル・EXP・ステータス
                 NetworkHandler.CHANNEL.send(
@@ -95,6 +107,15 @@ public class StatUpRequestPacket {
                         new StrengthSyncPacket(
                                 player.getCapability(StrengthProvider.STRENGTH_CAPABILITY)
                                         .map(IStrength::getStrength).orElse(1)
+                        )
+                );
+
+                // 技術値の同期
+                NetworkHandler.CHANNEL.send(
+                        PacketDistributor.PLAYER.with(() -> player),
+                        new TechniqueSyncPacket(
+                                player.getCapability(TechniqueProvider.TECHNIQUE_CAPABILITY)
+                                        .map(ITechnique::getTechnique).orElse(1)
                         )
                 );
 
