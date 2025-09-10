@@ -1,5 +1,6 @@
 package com.MissFrom.AshenMod.main;
 
+import com.MissFrom.AshenMod.main.advancement.AdvancementTriggers;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,6 +37,7 @@ public class AshenMod {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             NetworkHandler.register();
+            AdvancementTriggers.register();
         });
     }
 }

@@ -2,6 +2,8 @@ package com.MissFrom.AshenMod.main.sync;
 
 import com.MissFrom.AshenMod.main.status.level.PlayerLevelProvider;
 import com.MissFrom.AshenMod.main.status.strength.StrengthProvider;
+import com.MissFrom.AshenMod.main.status.vitality.VitalityHandler;
+import com.MissFrom.AshenMod.main.status.vitality.VitalityProvider;
 import com.MissFrom.AshenMod.main.status.technique.TechniqueProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -17,6 +19,8 @@ public class PlayerLoginSyncHandler {
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         ServerPlayer player = (ServerPlayer) event.getEntity();
+        // 生命力に基づいてHP更新
+        VitalityHandler.updatePlayerHealth(player);
 
         // レベル同期
         player.getCapability(PlayerLevelProvider.PLAYER_LEVEL).ifPresent(cap -> {
@@ -27,6 +31,14 @@ public class PlayerLoginSyncHandler {
                             cap.getExperience(),
                             cap.getExpToNextLevel()
                     )
+            );
+        });
+
+        // 生命力同期
+        player.getCapability(VitalityProvider.VITALITY_CAPABILITY).ifPresent(cap -> {
+            NetworkHandler.CHANNEL.send(
+                    PacketDistributor.PLAYER.with(() -> player),
+                    new VitalitySyncPacket(cap.getVitality())
             );
         });
 

@@ -1,5 +1,6 @@
 package com.MissFrom.AshenMod.main.capability;
 
+import com.MissFrom.AshenMod.main.status.vitality.VitalityProvider;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -26,6 +27,12 @@ public class CapabilityEventHandler {
                     new PlayerLevelProvider()
             );
 
+            // 生命力Capability
+            event.addCapability(
+                    new ResourceLocation(AshenMod.MOD_ID, "player_vitality"),
+                    new VitalityProvider()
+            );
+
             // 新しい筋力値Capability
             event.addCapability(
                     new ResourceLocation(AshenMod.MOD_ID, "player_strength"),
@@ -46,6 +53,13 @@ public class CapabilityEventHandler {
             // 既存のプレイヤーレベルデータの継承
             event.getOriginal().getCapability(PlayerLevelProvider.PLAYER_LEVEL).ifPresent(oldCap -> {
                 event.getEntity().getCapability(PlayerLevelProvider.PLAYER_LEVEL).ifPresent(newCap -> {
+                    newCap.loadFromNBT(oldCap.saveToNBT());
+                });
+            });
+
+            // 生命力値データの継承
+            event.getOriginal().getCapability(VitalityProvider.VITALITY_CAPABILITY).ifPresent(oldCap -> {
+                event.getEntity().getCapability(VitalityProvider.VITALITY_CAPABILITY).ifPresent(newCap -> {
                     newCap.loadFromNBT(oldCap.saveToNBT());
                 });
             });

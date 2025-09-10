@@ -1,0 +1,20 @@
+{
+  "parent": "ashenmod:bonfirelit",
+  "display": {
+    "icon": { "item": "minecraft:gold_nugget" },
+    "title": { "translate": "advancement.ashenmod.golden_body.title" },
+    "description": { "translate": "advancement.ashenmod.golden_body.description" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "reach_vitality_50": {
+      "trigger": "ashenmod:player_vitality_level",
+      "conditions": {
+        "level": 50
+      }
+    }
+  }
+}
